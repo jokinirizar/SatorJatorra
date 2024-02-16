@@ -15,7 +15,9 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI points;
     public resetTextValues countdownTextScript;
 
+    public MainAudioController mainAudioController;
     public AudioClip LastSeconds;
+    public AudioClip PlaySong;
 
     public delegate void EventHandlerInitialize();
 
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI  timerText;
     public float time = 60f;
 
+    private bool hasTimeSoundPlayed = false;
     void Start()
     {
         timerText.text = String.Format("{0:0.00}", time);
@@ -43,6 +46,7 @@ public class GameController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         isCursorEnabled = true;
         gameStarted = true;
+        mainAudioController.playMusic(PlaySong);
     }
     private void FinishGame()
     {
@@ -54,6 +58,7 @@ public class GameController : MonoBehaviour
     {
         if (time>0&& gameStarted)
         {
+       
             if (chronoAnimator.enabled == false)
             {
                 chronoAnimator.enabled = true;
@@ -67,6 +72,16 @@ public class GameController : MonoBehaviour
             FinishGame();
             OnFinish();
             gameStarted = false;
+        }
+
+        if (time < 15)
+        {
+            if(!hasTimeSoundPlayed)
+            {
+                mainAudioController.playSFX(LastSeconds);
+                    hasTimeSoundPlayed = true;              
+            }
+    
         }
        
     }

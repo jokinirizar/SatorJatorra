@@ -14,7 +14,6 @@ public class ComboPoints : MonoBehaviour
     private bool isComboTime = false;
     public void changeComboPoints()
     {
-        Debug.Log("comboPointsAdded");
         if (comboPointsText.text.Length > 0)
         {
             currentComboPoints = Int32.Parse(comboPointsText.text);

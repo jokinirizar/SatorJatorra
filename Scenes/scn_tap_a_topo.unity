@@ -1423,10 +1423,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -884024338992030679, guid: dc552dc3736ae954d99b57f437829ad4,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4160,9 +4160,11 @@ MonoBehaviour:
   chronoAnimator: {fileID: 1677380091}
   points: {fileID: 1333721362}
   countdownTextScript: {fileID: 1538696005}
+  mainAudioController: {fileID: 858596081}
   LastSeconds: {fileID: 8300000, guid: dda7a5b134f40c34089208a70ba2bf1a, type: 3}
+  PlaySong: {fileID: 8300000, guid: 1518baea9eba7794d902ee98d7bad849, type: 3}
   timerText: {fileID: 1677380089}
-  time: 10
+  time: 20
 --- !u!4 &1910009561
 Transform:
   m_ObjectHideFlags: 0

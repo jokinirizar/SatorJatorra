@@ -7,12 +7,14 @@ public class MainAudioController : MonoBehaviour
 
     public void playMusic(AudioClip audioClip)
     {
-        musicAudioSource.Stop();
+        Debug.Log("playing");
+        Debug.Log(audioClip.name);
         musicAudioSource.clip = audioClip;
         musicAudioSource.Play();
     }
     public void playSFX(AudioClip audioClip)
     {
+
         musicAudioSource.PlayOneShot(audioClip);
     }
 }
