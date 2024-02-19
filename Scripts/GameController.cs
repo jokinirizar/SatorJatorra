@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI  timerText;
     public float time = 60f;
+
+    public CinemachineVirtualCamera endCam;
+    public Animator FadeOutAnimator;
 
     private bool hasTimeSoundPlayed = false;
     void Start()
@@ -72,6 +76,8 @@ public class GameController : MonoBehaviour
             FinishGame();
             OnFinish();
             gameStarted = false;
+            endCam.enabled = true;
+            FadeOutAnimator.SetTrigger("StartFadeOut");
         }
 
         if (time < 15)
