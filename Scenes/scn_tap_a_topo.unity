@@ -3482,6 +3482,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Decoration
       objectReference: {fileID: 0}
+    - target: {fileID: 2944519544549187086, guid: 9274180bbcd222b43ad2b416a8c354d4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

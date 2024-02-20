@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class RaycastFromMouse : MonoBehaviour {
+public class RaycastMainMenu : MonoBehaviour {
 
-    public GameController controller;
+    public MenuController controller;
     Camera cam;
     public LayerMask mask;
     private void Start()
@@ -20,16 +20,16 @@ void Update()
         mousePos.z = 100f;
         mousePos = cam.ScreenToWorldPoint(mousePos);
         Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);
-        if (Input.GetMouseButtonDown(0)&&controller.isCursorEnabled)
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100, mask))
             {
-                if (hit.collider.gameObject.tag == "Mole")
+                if (hit.collider.gameObject.tag == "MenuOption")
                 {
-                    hit.transform.GetComponent<MoleScript>().onMoleHit();
+                    hit.transform.gameObject.GetComponent<Base3DButton>().OnClick();
                 }
               
             }

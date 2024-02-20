@@ -8,9 +8,10 @@ public class RandomDelay : MonoBehaviour
 
     private void Start()
     {
-        Random.Range(0.0f, 1000.0f);
+        float milisecs = Random.Range(0.0f, 1000.0f);
+        StartCoroutine(MoleIsShowing(milisecs));
     }
-    IEnumerator MoleIsShowing(int milisecs)
+    IEnumerator MoleIsShowing(float milisecs)
     {
         float secs = milisecs / 1000;
         yield return new WaitForSeconds(secs);
