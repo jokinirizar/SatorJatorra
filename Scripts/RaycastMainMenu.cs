@@ -9,11 +9,17 @@ public class RaycastMainMenu : MonoBehaviour {
     public MenuController controller;
     Camera cam;
     public LayerMask mask;
+    public GameObject panel; 
+
+    private Base3DButton button;
     private void Start()
     {
         cam = Camera.main;
     }
-
+    public void onFadeOutFinish()
+    {
+        button.OnClick();
+    }
 void Update()
     {
         Vector3 mousePos = Input.mousePosition;
@@ -29,7 +35,9 @@ void Update()
             {
                 if (hit.collider.gameObject.tag == "MenuOption")
                 {
-                    hit.transform.gameObject.GetComponent<Base3DButton>().OnClick();
+                    button = hit.transform.gameObject.GetComponent<Base3DButton>();
+                    panel.SetActive(true);
+
                 }
               
             }

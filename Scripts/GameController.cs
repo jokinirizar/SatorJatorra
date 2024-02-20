@@ -27,14 +27,20 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI  timerText;
     public float time = 60f;
 
+    public CinemachineBrain brain;
     public CinemachineVirtualCamera endCam;
+    public CinemachineVirtualCamera GameCam;
     public Animator FadeOutAnimator;
+
+    private bool frameSkipped = false;
 
     private bool hasTimeSoundPlayed = false;
     void Start()
     {
         timerText.text = String.Format("{0:0.00}", time);
         Cursor.lockState = CursorLockMode.Locked;
+        FadeOutAnimator.gameObject.SetActive(true);
+        FadeOutAnimator.SetTrigger("StartFadeIn");
         StartCoroutine(StartCountdown(5));
     }
 
@@ -50,16 +56,22 @@ public class GameController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         isCursorEnabled = true;
         gameStarted = true;
+        endCam.enabled = false;
         mainAudioController.playMusic(PlaySong);
     }
     private void FinishGame()
     {
+        endCam.enabled = true;
+
         Cursor.lockState = CursorLockMode.Locked;
         countdownTextScript.ChangeToFinishText();
 
     }
     private void Update()
     {
+        if(frameSkipped){
+            GameCam.enabled = true;
+        }
         if (time>0&& gameStarted)
         {
        
@@ -76,7 +88,7 @@ public class GameController : MonoBehaviour
             FinishGame();
             OnFinish();
             gameStarted = false;
-            endCam.enabled = true;
+            brain.m_DefaultBlend.m_Time = 8;
             FadeOutAnimator.SetTrigger("StartFadeOut");
         }
 
@@ -89,6 +101,6 @@ public class GameController : MonoBehaviour
             }
     
         }
-       
+        frameSkipped = true;
     }
 }
