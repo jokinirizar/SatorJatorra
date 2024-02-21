@@ -17,8 +17,11 @@ public class GameController : MonoBehaviour
     public resetTextValues countdownTextScript;
 
     public MainAudioController mainAudioController;
+    public AudioClip EndSFX;
     public AudioClip LastSeconds;
     public AudioClip PlaySong;
+    public AudioClip EndingSong;
+
 
     public delegate void EventHandlerInitialize();
 
@@ -32,6 +35,8 @@ public class GameController : MonoBehaviour
     public CinemachineVirtualCamera GameCam;
     public Animator FadeOutAnimator;
 
+    public HighscoreManager highscoreManager;
+    public GameObject highscorePanel;
     private bool frameSkipped = false;
 
     private bool hasTimeSoundPlayed = false;
@@ -59,13 +64,33 @@ public class GameController : MonoBehaviour
         endCam.enabled = false;
         mainAudioController.playMusic(PlaySong);
     }
+
+    IEnumerator StartFinalSong(float secs)
+    {
+        yield return new WaitForSeconds(secs);
+        mainAudioController.playMusic(EndingSong);
+    }
     private void FinishGame()
     {
         endCam.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         countdownTextScript.ChangeToFinishText();
+        OnFinish();
+        mainAudioController.playSFX(EndSFX);
+        StartCoroutine(StartFinalSong(0.5f));
+        gameStarted = false;
+        brain.m_DefaultBlend.m_Time = 8;
+        FadeOutAnimator.SetTrigger("StartFadeOut");
 
+    }
+    public void startHighscoreFadeIn()
+    {
+        //FadeOutAnimator.gameObject.SetActive(false);
+        highscorePanel.gameObject.SetActive(true);
+        highscorePanel.GetComponent<Animator>().SetTrigger("startFadeInFastEvent");
+        highscoreManager.AddHighscore("player", Int32.Parse(points.text));
+        Cursor.lockState = CursorLockMode.Confined;
     }
     private void Update()
     {
@@ -84,12 +109,7 @@ public class GameController : MonoBehaviour
         }
         else if(gameStarted&&time <= 0)
         {
-            Debug.Log("changed");
             FinishGame();
-            OnFinish();
-            gameStarted = false;
-            brain.m_DefaultBlend.m_Time = 8;
-            FadeOutAnimator.SetTrigger("StartFadeOut");
         }
 
         if (time < 15)

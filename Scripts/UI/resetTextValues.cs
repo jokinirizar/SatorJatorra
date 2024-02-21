@@ -32,7 +32,7 @@ public class resetTextValues : MonoBehaviour
         if(currentValue > 0) {
             chronoText.text = currentValue.ToString();
             chronoText.gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-            chronoText.color = Color.white;
+            chronoText.color = Color.black;
         }
 
         if (currentValue==0)

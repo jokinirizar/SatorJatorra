@@ -7,8 +7,7 @@ public class MainAudioController : MonoBehaviour
 
     public void playMusic(AudioClip audioClip)
     {
-        Debug.Log("playing");
-        Debug.Log(audioClip.name);
+        musicAudioSource.Stop();
         musicAudioSource.clip = audioClip;
         musicAudioSource.Play();
     }
