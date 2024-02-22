@@ -15,8 +15,7 @@ public class HighscoreInserter : MonoBehaviour
 
         foreach (HighscoreEntry entry in highscores)
         {
-            Debug.Log(CurrentIteration);
-            transform.GetChild(CurrentIteration).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text= highscores[0].score.ToString();
+            transform.GetChild(CurrentIteration).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text= highscores[CurrentIteration].score.ToString();
             CurrentIteration++;
         }
     }

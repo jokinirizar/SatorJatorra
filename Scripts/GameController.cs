@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class GameController : MonoBehaviour
     public CinemachineVirtualCamera endCam;
     public CinemachineVirtualCamera GameCam;
     public Animator FadeOutAnimator;
+    public Animator FadeOutAnimatorSecondPanel;
 
     public HighscoreManager highscoreManager;
     public GameObject highscorePanel;
@@ -54,8 +56,19 @@ public class GameController : MonoBehaviour
         combopoints.changeComboPoints();
         combopoints.resetComboTimer();
     }
+    public void OnMainMenuClick()
+    {
+        FadeOutAnimatorSecondPanel.gameObject.SetActive(true);
+        FadeOutAnimatorSecondPanel.SetTrigger("startFadeOutFastEvent");
+    }
 
-   IEnumerator StartCountdown(int secs)
+    public void OnRetryClick()
+    {
+        FadeOutAnimatorSecondPanel.gameObject.SetActive(true);
+        FadeOutAnimatorSecondPanel.SetTrigger("startFadeOutFastEventRetry");
+    }
+
+    IEnumerator StartCountdown(int secs)
    {
         yield return new WaitForSeconds(secs);
         Cursor.lockState = CursorLockMode.Confined;
@@ -81,7 +94,9 @@ public class GameController : MonoBehaviour
         StartCoroutine(StartFinalSong(0.5f));
         gameStarted = false;
         brain.m_DefaultBlend.m_Time = 8;
+        FadeOutAnimator.gameObject.SetActive(true);
         FadeOutAnimator.SetTrigger("StartFadeOut");
+
 
     }
     public void startHighscoreFadeIn()
@@ -89,8 +104,11 @@ public class GameController : MonoBehaviour
         //FadeOutAnimator.gameObject.SetActive(false);
         highscorePanel.gameObject.SetActive(true);
         highscorePanel.GetComponent<Animator>().SetTrigger("startFadeInFastEvent");
-        highscoreManager.AddHighscore("player", Int32.Parse(points.text));
+        highscoreManager.AddHighscore("player", Int32.Parse(points.text));  
         Cursor.lockState = CursorLockMode.Confined;
+    }
+    public void onHighscoreLoad()
+    {
     }
     private void Update()
     {

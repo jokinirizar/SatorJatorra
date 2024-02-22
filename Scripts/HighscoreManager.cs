@@ -5,7 +5,7 @@ using System.IO;
 public class HighscoreManager : MonoBehaviour
 {
     private string highscoreFilePath;
-    private List<HighscoreEntry> highscores; 
+    private HighscoreClass highscoreClass;
     public int maxHighscores = 9; 
      
     [System.Serializable]
@@ -18,7 +18,7 @@ public class HighscoreManager : MonoBehaviour
     void Start()
     {
 
-        highscores = new List<HighscoreEntry>();
+       // highscoreClass = new List<HighscoreEntry>();
         highscoreFilePath = Application.persistentDataPath + "/highscores.json";
         LoadHighscores();
     }
@@ -27,15 +27,15 @@ public class HighscoreManager : MonoBehaviour
     public void AddHighscore(string name, int score)
     {
         HighscoreEntry newEntry = new HighscoreEntry { name = name, score = score };
-        highscores.Add(newEntry);
+        highscoreClass.Highscores.Add(newEntry);
 
 
-        highscores.Sort((x, y) => y.score.CompareTo(x.score));
+        highscoreClass.Highscores.Sort((x, y) => y.score.CompareTo(x.score));
 
 
-        if (highscores.Count > maxHighscores)
+        if (highscoreClass.Highscores.Count > maxHighscores)
         {
-            highscores.RemoveRange(maxHighscores, highscores.Count - maxHighscores);
+            highscoreClass.Highscores.RemoveRange(maxHighscores, highscoreClass.Highscores.Count - maxHighscores);
         }
 
 
@@ -44,10 +44,10 @@ public class HighscoreManager : MonoBehaviour
 
     private void SaveHighscores()
     {
-        Debug.Log("saving");    
-        string json = JsonUtility.ToJson(highscores);
-        File.WriteAllText(highscoreFilePath, highscores.ToString());
-        Debug.Log(highscoreFilePath);
+        Debug.Log(highscoreClass.Highscores[0].score);
+        string json = JsonUtility.ToJson(highscoreClass);
+        Debug.Log(json);
+        File.WriteAllText(highscoreFilePath, json);
     }
 
     private void LoadHighscores()
@@ -55,13 +55,21 @@ public class HighscoreManager : MonoBehaviour
         if (File.Exists(highscoreFilePath))
         {
             string json = File.ReadAllText(highscoreFilePath);
-            highscores = JsonUtility.FromJson<List<HighscoreEntry>>(json);
-
-            highscores.Sort((x, y) => y.score.CompareTo(x.score));
+            highscoreClass = JsonUtility.FromJson<HighscoreClass>(json);
+            //Debug.Log(highscores);
+            if (highscoreClass.Highscores == null)
+            {
+                highscoreClass.Highscores = new List<HighscoreEntry>();
+            }
+            highscoreClass.Highscores.Sort((x, y) => y.score.CompareTo(x.score));
         }
     }
     public List<HighscoreEntry> GetHighscores()
     {
-        return highscores;
+        return highscoreClass.Highscores;
+    }
+     public class HighscoreClass
+    {
+        public List<HighscoreEntry> Highscores;
     }
 }

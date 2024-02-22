@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4345271537181439005}
   audioSource: {fileID: 1667763827093030779}
-  moleHitClip: {fileID: 8300000, guid: 4e87d4425fae40143b6ad5a2baf0968b, type: 3}
+  moleHitClip: {fileID: 8300000, guid: 8ec5fe93bffa19c4a9d79a581f906b91, type: 3}
   moleAppearClip: {fileID: 8300000, guid: 317b368afa521d047a02ef737d0a086a, type: 3}
   moleCollider: {fileID: 1394903106824957388}
   gameIsRunning: 1
@@ -1063,7 +1063,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4e87d4425fae40143b6ad5a2baf0968b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8ec5fe93bffa19c4a9d79a581f906b91, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

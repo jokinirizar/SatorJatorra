@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HighscoreScreen : MonoBehaviour
 {
+
     public void onAnimationEnd()
     {
-
     }
 }
